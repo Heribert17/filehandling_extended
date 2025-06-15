@@ -1,11 +1,23 @@
+# My scripts
+start_virtual_environment.sh
+start_virtual_environment.cmd
+create_docs.sh
+requirements_other.txt
+mkdocs.yml
+
+.vscode/
+venv/
+venv_linux/
+docs/
+tests/
+OtherFiles/
+.*/
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
-venv/
-venv_linux/
-.vscode/
-.*/
 
 # C extensions
 *.so

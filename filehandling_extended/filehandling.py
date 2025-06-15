@@ -1,12 +1,11 @@
 """
-Some file functions
+Some extended file functions
 
 Author: Heribert Füchtenhans
 
 Version: 2025.6.15
 
-Note:
-    On Windows we need pywin32 as requirement to use some of the functions.
+On Windows we need pywin32 as requirement to use some of the functions.
 """
 
 import datetime
@@ -42,8 +41,9 @@ def copy_file(
     callback: Callable[[int, int], int] | None,
     buffer_size: int = 4_194_304,  # 4MB
 ) -> pathlib.Path | None:
-    """Copy one file with a callback. The function copies all meta data of a file.
-    Under Windows it uses the Windows API to copy the file.
+    """Copy one file with a callback.<br>
+    The function copies all meta data of a file.<br>
+    Under Windows it uses the Windows API to copy the file.<br>
     Under Linux it uses the shutil.copy2 function when no callback is given else
     it implements a custom copy function that calls the callback
 
@@ -55,31 +55,22 @@ def copy_file(
             Existing files will be overwritten.
         callback: On Linux will be call when buffer_size bytes are copied. On Windows
             the callback will be called when the Windows API calls the callback.
-
             The parameter for callback are (total_bytes_copied, filesize)
-
             callback should return a value:
-
                 0: Cancel the copy and delete the already copied file
-
                 1: Continue copying
-
             Example:
-
                 def my_callback(total_bytes_copied: int, filesize: int) -> int:
         buffer_size: How many bytes to copy before each call to the callback, default = 4MB
-
             Only used on Linux, Windows uses an internal buffer size
 
     Returns:
         Full path to destination file or None if transfer was canceled
 
-    Exception:
-        FileNotFoundError if src doesn't exist
-
-        TypeError if callback is not callable
-
-        OSError if copying fails, e.g. if src and dest are the same file
+    Exceptions:
+        FileNotFoundError: If src doesn't exist
+        TypeError: If callback is not callable
+        OSError: If copying fails, e.g. if src and dest are the same file
     """
 
     srcfile = pathlib.Path(src)
@@ -121,13 +112,11 @@ def set_filetime(
     Args:
         filename: Name of the file to change
         creationtime: New creation time
-
             Note: On Linux, this should be None, as linux has no creation time for files.
-
         modifytime: New modified time
         accesstime: New last access time
 
-    Exception:
-        OSError if something went wrong
+    Exceptions:
+        OSError: If something went wrong
     """
     osfunc.set_filetime(filename, creationtime, modifytime, accesstime)

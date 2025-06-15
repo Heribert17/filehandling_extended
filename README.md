@@ -2,7 +2,7 @@
 
 Implements additional functions for filehandling.
 
-For detailed description see the documentaion directory
+For detailed description see [https://Heribert17.github.io/filehandling_extended/](https://Heribert17.github.io/filehandling_extended/)
 
 Tested with:
 * Python 3.10 and above
