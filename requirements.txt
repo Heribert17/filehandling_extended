@@ -1,0 +1,8 @@
+# For the python module
+pywin32              ; sys_platform == 'win32'
+
+# to generate the docs
+mkdocs               ; sys_platform != 'win32'
+mkdocstrings[python] ; sys_platform != 'win32'
+mkdocs-material      ; sys_platform != 'win32'
+

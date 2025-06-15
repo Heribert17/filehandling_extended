@@ -1,0 +1,12 @@
+site_name: filehandling_extended
+
+theme:
+  name: "material"
+
+plugins:
+  - mkdocstrings
+
+nav:
+  - Documentation: index.md
+  - filehandling_extended: filehandling_extended.md
+
