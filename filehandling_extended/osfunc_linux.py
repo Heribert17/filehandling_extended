@@ -94,6 +94,7 @@ def copy_file(
         # copy file metadata
         st = os.stat(srcfile)
         os.chown(destfile, st.st_uid, st.st_gid)
+        os.utime(destfile, None, ns=(st.st_atime_ns, st.st_mtime_ns))
     except (FileNotFoundError, PermissionError) as err:
         raise OSError from err
 
