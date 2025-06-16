@@ -391,7 +391,7 @@
 
         <p>Some extended file functions</p>
 <p>Author: Heribert Füchtenhans</p>
-<p>Version: 2025.6.15</p>
+<p>Version: 2025.6.16</p>
 <p>On Windows we need pywin32 as requirement to use some of the functions.</p>
 
 
@@ -553,7 +553,7 @@
 
 
 <h2 id="filehandling_extended.filehandling.copy_file" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">copy_file</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">callback</span><span class="p">,</span> <span class="n">buffer_size</span><span class="o">=</span><span class="mi">4194304</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">copy_file</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">buffer_size</span><span class="o">=</span><span class="mi">4194304</span><span class="p">)</span></code>
 
 </h2>
 
@@ -633,7 +633,7 @@ Example:
               </div>
             </td>
             <td>
-                <em>required</em>
+                  <code>None</code>
             </td>
           </tr>
           <tr class="doc-section-item">
@@ -779,7 +779,7 @@ Only used on Linux, Windows uses an internal buffer size</p>
 <span class="normal">89</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">copy_file</span><span class="p">(</span>
     <span class="n">src</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">,</span>
     <span class="n">dest</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">,</span>
-    <span class="n">callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">buffer_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4_194_304</span><span class="p">,</span>  <span class="c1"># 4MB</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Copy one file with a callback.&lt;br&gt;</span>
@@ -957,7 +957,7 @@ Only used on Linux, Windows uses an internal buffer size</p>
                 <code>filename</code>
             </td>
             <td>
-                  <code><span title="str">str</span></code>
+                  <code><span title="str">str</span> | <span title="pathlib.Path">Path</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -973,7 +973,7 @@ Only used on Linux, Windows uses an internal buffer size</p>
                 <code>creationtime</code>
             </td>
             <td>
-                  <code><span title="typing.Optional">Optional</span>[<span title="datetime.datetime">datetime</span>]</code>
+                  <code><span title="datetime.datetime">datetime</span> | None</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -990,7 +990,7 @@ Note: On Linux, this should be None, as linux has no creation time for files.</p
                 <code>modifytime</code>
             </td>
             <td>
-                  <code><span title="typing.Optional">Optional</span>[<span title="datetime.datetime">datetime</span>]</code>
+                  <code><span title="datetime.datetime">datetime</span> | None</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1006,7 +1006,7 @@ Note: On Linux, this should be None, as linux has no creation time for files.</p
                 <code>accesstime</code>
             </td>
             <td>
-                  <code><span title="typing.Optional">Optional</span>[<span title="datetime.datetime">datetime</span>]</code>
+                  <code><span title="datetime.datetime">datetime</span> | None</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1066,10 +1066,10 @@ Note: On Linux, this should be None, as linux has no creation time for files.</p
 <span class="normal">120</span>
 <span class="normal">121</span>
 <span class="normal">122</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">set_filetime</span><span class="p">(</span>
-    <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">creationtime</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">],</span>
-    <span class="n">modifytime</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">],</span>
-    <span class="n">accesstime</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">],</span>
+    <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">,</span>
+    <span class="n">creationtime</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">modifytime</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">accesstime</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Changes creation and/or modification and/or accesstime time of a file.</span>
@@ -1084,7 +1084,7 @@ Note: On Linux, this should be None, as linux has no creation time for files.</p
 <span class="sd">    Exceptions:</span>
 <span class="sd">        OSError: If something went wrong</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">osfunc</span><span class="o">.</span><span class="n">set_filetime</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">creationtime</span><span class="p">,</span> <span class="n">modifytime</span><span class="p">,</span> <span class="n">accesstime</span><span class="p">)</span>
+    <span class="n">osfunc</span><span class="o">.</span><span class="n">set_filetime</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">filename</span><span class="p">),</span> <span class="n">creationtime</span><span class="p">,</span> <span class="n">modifytime</span><span class="p">,</span> <span class="n">accesstime</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
