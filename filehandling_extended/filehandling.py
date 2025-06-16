@@ -3,7 +3,7 @@ Some extended file functions
 
 Author: Heribert Füchtenhans
 
-Version: 2025.6.15
+Version: 2025.6.16
 
 On Windows we need pywin32 as requirement to use some of the functions.
 """
@@ -12,7 +12,7 @@ import datetime
 import os
 import pathlib
 import platform
-from typing import Callable, Optional
+from typing import Callable
 
 if platform.system() == "Windows":
     import filehandling_extended.osfunc_windows as osfunc
@@ -38,7 +38,7 @@ def compare_filenames(file1: str, file2: str) -> int:
 def copy_file(
     src: str | pathlib.Path,
     dest: str | pathlib.Path,
-    callback: Callable[[int, int], int] | None,
+    callback: Callable[[int, int], int] | None = None,
     buffer_size: int = 4_194_304,  # 4MB
 ) -> pathlib.Path | None:
     """Copy one file with a callback.<br>
@@ -101,10 +101,10 @@ def get_volumelabel(pathname: pathlib.Path) -> str:
 
 
 def set_filetime(
-    filename: str,
-    creationtime: Optional[datetime.datetime],
-    modifytime: Optional[datetime.datetime],
-    accesstime: Optional[datetime.datetime],
+    filename: str | pathlib.Path,
+    creationtime: datetime.datetime | None,
+    modifytime: datetime.datetime | None,
+    accesstime: datetime.datetime | None,
 ) -> None:
     """
     Changes creation and/or modification and/or accesstime time of a file.
@@ -119,4 +119,4 @@ def set_filetime(
     Exceptions:
         OSError: If something went wrong
     """
-    osfunc.set_filetime(filename, creationtime, modifytime, accesstime)
+    osfunc.set_filetime(str(filename), creationtime, modifytime, accesstime)

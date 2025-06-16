@@ -25,7 +25,7 @@ mkdocs build --no-directory-urls --site-dir=documentation
 echo Upload documentation to github?
 read -p "Continue with return ..."
 #
-mkdocs gh-deploy --clean
+mkdocs gh-deploy
 rm -rf ./site
 
 echo
