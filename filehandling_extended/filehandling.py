@@ -81,7 +81,9 @@ def copy_file(
     destpath = pathlib.Path(dest)
     destfile = destpath / srcfile.name if destpath.is_dir() else destpath
     if destfile.exists() and srcfile.samefile(destfile):
-        raise OSError(f"source file `{src}` and destinaton file `{dest}` are the same file")
+        raise OSError(
+            f"source file `{src}` and destinaton file `{dest}` are the same file"
+        )
 
     os.makedirs(destfile.parent, exist_ok=True)
     filesize = srcfile.stat().st_size
@@ -120,3 +122,17 @@ def set_filetime(
         OSError: If something went wrong
     """
     osfunc.set_filetime(str(filename), creationtime, modifytime, accesstime)
+
+
+def test_for_system_attribute(path: pathlib.Path) -> bool:
+    """Test if the path (file or directory) has the system attribute set.<br>
+    On Linux always return False.<br>
+    On Windows it checks if the file or directory has the system attribute set.
+
+    Args:
+        path: Path to the file or directory to test
+
+    Returns:
+        True if the path has system attribute, False otherwise.
+    """
+    return osfunc.test_for_system_attribute(path)

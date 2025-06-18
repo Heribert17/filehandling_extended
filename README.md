@@ -8,6 +8,8 @@ Tested with:
 * Python 3.10 and above
 
 # Changelog
+* 1.2.0
+    * Added function test_for_system_attribute
 * 1.1.2
     * copy_file under Linux did not set filetime
 * 1.1.1

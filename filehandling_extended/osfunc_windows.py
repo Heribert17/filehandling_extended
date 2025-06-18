@@ -121,4 +121,11 @@ def copy_file(
         if os.path.exists(destination):
             os.remove(destination)
         if err.winerror != 1235:    # 1235 is Copy was canceled
-            raise OSError(err) from err
+            raise OSError from err
+
+def test_for_system_attribute(path: pathlib.Path) -> bool:
+    """Test if the path has system attribute.
+    Path must exist and not be mounted"""
+    if not os.path.exists(path):
+        return False
+    return path.stat().st_file_attributes & stat.FILE_ATTRIBUTE_SYSTEM != 0

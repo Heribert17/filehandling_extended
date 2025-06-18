@@ -28,5 +28,5 @@ read -p "Continue with return ..."
 mkdocs gh-deploy
 rm -rf ./site
 
-echo
+echo Upload done
 read -p "End with return ..."

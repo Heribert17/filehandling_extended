@@ -127,3 +127,8 @@ def _copyfileobj(
         if callback(copied, filesize) == 0:
             return 0
     return 1
+
+def test_for_system_attribute(path: pathlib.Path) -> bool:
+    """Test if the path has system attribute.
+    On Linux always return False"""
+    return False
