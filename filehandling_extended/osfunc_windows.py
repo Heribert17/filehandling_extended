@@ -3,13 +3,14 @@ OS specific functions for filehandling_extended
 WINDOWS
 
 Author: Heribert Füchtenhans
-Version: 2025.6.15
+Version: 2025.6.18
 """
 
 import contextlib
 import datetime
 import os
 import pathlib
+import stat
 from typing import Any, Callable, Optional
 
 from ctypes import windll, wintypes, byref  # type: ignore
@@ -63,7 +64,7 @@ def set_filetime(
     windll.kernel32.CloseHandle(handle)
 
 
-def _extracted_from_set_filetime(arg0):
+def _extracted_from_set_filetime(arg0: datetime.datetime):
     """Create the filetime"""
     try:
         epoch = arg0.timestamp()
@@ -109,13 +110,13 @@ def copy_file(
             return PROGRESS_CONTINUE if rwert == 1 else PROGRESS_CANCEL
         return PROGRESS_CONTINUE
 
+    destination = str(destfile)
+    source = str(srcfile)
     try:
-        destination = str(destfile)
-        source = str(srcfile)
         if callback is not None:
             win32file.CopyFileEx(source, destination, win_callback)  # type: ignore  # pylint: disable=c-extension-no-member
         else:
-            win32file.CopyFileW(source, destination, False)  # pylint: disable=c-extension-no-member
+            win32file.CopyFileW(source, destination, False)  # type: ignore   # pylint: disable=c-extension-no-member
     except pywintypes.error as err:  # pylint: disable=no-member
         # The next line is commented out because I don't know why I inserted it
         if os.path.exists(destination):
@@ -128,4 +129,4 @@ def test_for_system_attribute(path: pathlib.Path) -> bool:
     Path must exist and not be mounted"""
     if not os.path.exists(path):
         return False
-    return path.stat().st_file_attributes & stat.FILE_ATTRIBUTE_SYSTEM != 0
+    return (path.stat().st_file_attributes & stat.FILE_ATTRIBUTE_SYSTEM) != 0
